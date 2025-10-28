@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio — Your Name | CSE Student</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Palette & Base ---------- */
+    :root{
+      --bg:#0b1220;            /* deep navy */
+      --card:#071129;          /* slightly lighter */
+      --muted:#9aa6b2;         /* muted text */
+      --accent:#38bdf8;        /* cyan-ish accent */
+      --accent-2:#60a5fa;      /* softer blue */
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --max-width:1100px;
+      --ff: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--ff);
+      background:linear-gradient(180deg,var(--bg) 0%, #071226 100%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      padding:40px 20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+    }
+
+    /* ---------- Top Nav ---------- */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+    }
+
+    .brand{
+      display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit
+    }
+    .logo{
+      width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;font-weight:800;color:#022233;
+      box-shadow:0 6px 18px rgba(8,20,30,0.6);
+    }
+    .brand h1{font-size:1rem;margin:0}
+    .brand p{font-size:0.8rem;margin:0;color:var(--muted)}
+
+    nav{display:flex;gap:14px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 12px;border-radius:10px}
+    nav a:hover{color:var(--accent);background:rgba(255,255,255,0.02)}
+
+    .cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:9px 14px;border-radius:10px;color:#022233;font-weight:700;text-decoration:none}
+
+    /* ---------- Hero ---------- */
+    .hero{
+      display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;margin-bottom:28px;
+    }
+
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:28px;border-radius:var(--radius);box-shadow:0 10px 30px rgba(2,8,20,0.6);
+    }
+
+    .intro h2{margin:0 0 8px;font-size:clamp(1.5rem,2.6vw,2.2rem)}
+    .intro p.lead{color:var(--muted);margin:0 0 18px}
+    .meta{display:flex;gap:10px;flex-wrap:wrap}
+    .meta .chip{background:var(--glass);padding:8px 10px;border-radius:10px;font-weight:600;color:var(--muted)}
+
+    /* profile card */
+    .profile{
+      background:linear-gradient(180deg,#07162a,rgba(255,255,255,0.02));
+      padding:22px;border-radius:16px;text-align:center;box-shadow:0 8px 20px rgba(2,8,20,0.6);
+    }
+    .avatar{
+      width:120px;height:120px;border-radius:18px;background:linear-gradient(180deg,#0ea5b7, #2563eb);
+      display:inline-grid;place-items:center;font-size:32px;font-weight:800;color:#021426;margin-bottom:12px
+    }
+    .name{font-size:1.05rem;font-weight:700;margin:0}
+    .role{color:var(--muted);margin:4px 0 14px}
+    .profile .small{font-size:0.85rem;color:var(--muted)}
+
+    .links{display:flex;gap:8px;justify-content:center;margin-top:12px}
+    .links a{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);text-decoration:none;color:var(--muted);font-weight:600}
+    .links a:hover{color:var(--accent)}
+
+    /* ---------- Sections Grid ---------- */
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+
+    section.card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:20px;border-radius:14px;box-shadow:0 8px 24px rgba(2,8,20,0.5)
+    }
+
+    h3{margin:0 0 12px;font-size:1.05rem}
+
+    /* Education timeline */
+    .timeline{display:flex;flex-direction:column;gap:12px}
+    .titem{display:flex;gap:12px}
+    .titem .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:6px}
+    .titem .body{background:rgba(255,255,255,0.01);padding:12px;border-radius:10px}
+    .muted{color:var(--muted);font-size:0.92rem}
+
+    /* Achievements */
+    .badges{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);padding:10px 12px;border-radius:10px;font-weight:700}
+
+    /* Skills */
+    .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .skill{display:flex;flex-direction:column;gap:6px}
+    .skill .bar{height:10px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden}
+    .skill .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:999px}
+
+    /* Projects */
+    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .project{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
+    .project h4{margin:0 0 8px}
+    .project p{margin:0;color:var(--muted);font-size:0.95rem}
+    .project .tags{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+    /* Contact */
+    .contact form{display:flex;flex-direction:column;gap:10px}
+    .field{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:10px;color:inherit}
+    .field::placeholder{color:rgba(230,238,246,0.45)}
+    .send{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:10px;border-radius:10px;border:0;color:#022233;font-weight:700}
+
+    /* Footer */
+    footer{color:var(--muted);text-align:center;margin-top:26px}
+
+    /* small screen adjustments */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .grid{grid-template-columns:1fr;}
+      .projects{grid-template-columns:1fr}
+      .skills{grid-template-columns:1fr}
+      nav{display:none}
+    }
+
+    @media (max-width:520px){
+      body{padding:18px}
+      .avatar{width:96px;height:96px}
+    }
+
+    /* subtle hover lift */
+    .hover-lift{transition:transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;}
+    .hover-lift:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,8,20,0.6)}
+
+    /* tiny helper */
+    .muted-2{color:rgba(230,238,246,0.6)}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <a class="brand" href="#">
+        <div class="logo">YN</div>
+        <div>
+          <h1>Your Name</h1>
+          <p>Computer Science • Problem Solver</p>
+        </div>
+      </a>
+
+      <nav>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact" class="cta">Hire / Contact</a>
+      </nav>
+    </header>
+
+    <main>
+
+      <section class="hero-card hero">
+        <div class="intro">
+          <h2>Hi — I'm <span style="color:var(--accent)">Your Name</span></h2>
+          <p class="lead">A Computer Science student who builds thoughtful, reliable web apps and embedded systems. I love turning ideas into polished products — with performance and clean code in mind.</p>
+
+          <div class="meta">
+            <div class="chip">BSc. CSE — Your University</div>
+            <div class="chip">Final Year • Graduating 2026</div>
+            <div class="chip">Open to internships & freelance</div>
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="cta" href="#projects">See Projects</a>
+            <a class="chip" href="#education">Education</a>
+            <a class="chip" href="#contact">Contact</a>
+            <a class="chip" href="#" download>Download Resume</a>
+          </div>
+
+          <div style="margin-top:18px">
+            <h3 style="margin-bottom:8px">Quick pitch</h3>
+            <p class="muted">I build end-to-end features using clean architecture, test what matters, and ship with performance in mind. Comfortable with JavaScript (Node, React), Python, C/C++ for embedded, and databases.</p>
+          </div>
+
+        </div>
+
+        <aside class="profile hover-lift">
+          <div class="avatar">YN</div>
+          <p class="name">Your Name</p>
+          <p class="role">CSE Student • Full‑stack & Embedded</p>
+          <p class="small muted-2">Based in Dhaka, Bangladesh • Available for internships & remote work</p>
+
+          <div class="links">
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Portfolio</a>
+          </div>
+        </aside>
+      </section>
+
+      <div class="grid" style="margin-top:18px">
+
+        <!-- Left column: About / Projects / Experience -->
+        <div>
+
+          <section id="about" class="card hover-lift">
+            <h3>About me</h3>
+            <p class="muted">I'm a passionate CSE student with experience building web apps and firmware for microcontrollers. My focus areas are full‑stack web development, performance optimization, and simple, maintainable system design. I enjoy mentoring juniors and collaborating on open-source.</p>
+
+            <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+              <div class="badge">Problem Solving</div>
+              <div class="badge">System Design</div>
+              <div class="badge">Embedded Systems</div>
+              <div class="badge">Web Performance</div>
+              <div class="badge">Team Player</div>
+            </div>
+          </section>
+
+          <section id="projects" class="card hover-lift" style="margin-top:14px">
+            <h3>Featured Projects</h3>
+            <div class="projects">
+              <article class="project hover-lift">
+                <h4>Smart Home Monitor</h4>
+                <p class="muted">An STM32-based environmental monitor with web dashboard (UART → Node.js backend). Implemented efficient data batching and a responsive dashboard.</p>
+                <div class="tags">
+                  <span class="badge">C</span>
+                  <span class="badge">Node.js</span>
+                  <span class="badge">WebSocket</span>
+                </div>
+              </article>
+
+              <article class="project hover-lift">
+                <h4>QuizGen — PDF → Quiz</h4>
+                <p class="muted">A single-file web tool that ingests PDFs and generates multiple-choice quizzes using heuristics and ML prompts. Focus on UX for students and teachers.</p>
+                <div class="tags"><span class="badge">JavaScript</span><span class="badge">PDF</span><span class="badge">AI</span></div>
+              </article>
+
+              <article class="project hover-lift">
+                <h4>Portfolio CMS</h4>
+                <p class="muted">A lightweight content module and static site generator to keep blog & projects in a single TypeScript file. Uses MDX-like markdown conventions.</p>
+                <div class="tags"><span class="badge">TypeScript</span><span class="badge">SSG</span></div>
+              </article>
+
+              <article class="project hover-lift">
+                <h4>Lab Automation Script</h4>
+                <p class="muted">Automated serial data collection and plotting pipeline used in the embedded systems lab — reduced manual time by 70%.</p>
+                <div class="tags"><span class="badge">Python</span><span class="badge">UART</span></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="card hover-lift" style="margin-top:14px">
+            <h3>Experience & Internships</h3>
+            <div class="timeline">
+              <div class="titem">
+                <div class="dot"></div>
+                <div class="body">
+                  <strong>Software Intern — Company X</strong>
+                  <div class="muted">Jun 2024 — Sep 2024</div>
+                  <div class="muted" style="margin-top:6px">Implemented backend endpoints for analytics and migrated large queries to indexed views; improved response times by 35%.</div>
+                </div>
+              </div>
+
+              <div class="titem">
+                <div class="dot"></div>
+                <div class="body">
+                  <strong>Research Assistant — University Lab</strong>
+                  <div class="muted">Jan 2024 — May 2024</div>
+                  <div class="muted" style="margin-top:6px">Worked on sensor fusion algorithms and contributed to an open-source data-collection tool used by the lab.</div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Right column: Education / Skills / Achievements / Contact -->
+        <aside>
+
+          <section id="education" class="card hover-lift">
+            <h3>Education</h3>
+            <div class="timeline">
+              <div class="titem">
+                <div class="dot"></div>
+                <div class="body">
+                  <strong>B.Sc. in Computer Science & Engineering</strong>
+                  <div class="muted">Your University — 2022 — 2026 (Expected)</div>
+                  <div class="muted" style="margin-top:6px">Relevant courses: Algorithms, Operating Systems, Database Systems, Embedded Systems.</div>
+                </div>
+              </div>
+
+              <div class="titem">
+                <div class="dot"></div>
+                <div class="body">
+                  <strong>Higher Secondary Certificate</strong>
+                  <div class="muted">College Name — 2020 — 2022</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="skills" class="card hover-lift" style="margin-top:14px">
+            <h3>Skills</h3>
+            <div class="skills">
+              <div class="skill">
+                <div style="display:flex;justify-content:space-between"><strong>JavaScript</strong><span class="muted">85%</span></div>
+                <div class="bar"><i style="width:85%"></i></div>
+              </div>
+
+              <div class="skill">
+                <div style="display:flex;justify-content:space-between"><strong>Python</strong><span class="muted">78%</span></div>
+                <div class="bar"><i style="width:78%"></i></div>
+              </div>
+
+              <div class="skill">
+                <div style="display:flex;justify-content:space-between"><strong>C / Embedded</strong><span class="muted">80%</span></div>
+                <div class="bar"><i style="width:80%"></i></div>
+              </div>
+
+              <div class="skill">
+                <div style="display:flex;justify-content:space-between"><strong>Databases</strong><span class="muted">72%</span></div>
+                <div class="bar"><i style="width:72%"></i></div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px">
+              <h4 style="margin:0 0 8px">Tools & Tech</h4>
+              <div class="badges">
+                <div class="badge">Git</div>
+                <div class="badge">Docker</div>
+                <div class="badge">Linux</div>
+                <div class="badge">React</div>
+                <div class="badge">Node.js</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card hover-lift" style="margin-top:14px">
+            <h3>Achievements</h3>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div class="body" style="background:transparent;padding:8px">
+                <strong>1st Prize — Inter-university Hackathon</strong>
+                <div class="muted">Built an MVP and led a 3-person team. Judges praised product-market fit and technical depth.</div>
+              </div>
+
+              <div class="body" style="background:transparent;padding:8px">
+                <strong>Top Performer — Programming Contest</strong>
+                <div class="muted">Ranked top 10 in a regional competitive programming contest.</div>
+              </div>
+
+              <div class="body" style="background:transparent;padding:8px">
+                <strong>Research Poster — IEEE Student Conference</strong>
+                <div class="muted">Presented sensor-fusion research and won best poster (student category).</div>
+              </div>
+            </div>
+          </section>
+
+          <section id="contact" class="card hover-lift" style="margin-top:14px">
+            <h3>Contact</h3>
+            <p class="muted">Want to collaborate or hire? Send a short message and I'll reply promptly.</p>
+            <form>
+              <input class="field" placeholder="Your full name" />
+              <input class="field" placeholder="Email" />
+              <textarea class="field" rows="4" placeholder="Message"></textarea>
+              <button class="send">Send Message</button>
+            </form>
+
+            <div style="margin-top:12px;font-size:0.95rem;color:var(--muted)">
+              <div><strong>Email:</strong> youremail@example.com</div>
+              <div style="margin-top:6px"><strong>Phone:</strong> +880 1X XXXXXXXX</div>
+            </div>
+
+          </section>
+
+        </aside>
+
+      </div>
+
+    </main>
+
+    <footer>
+      <div style="max-width:var(--max-width);margin:18px auto 0;color:var(--muted)">© <span id="year">2025</span> Your Name — CSE Student • Built with ❤️ and strong coffee</div>
+    </footer>
+
+  </div>
+</body>
+</html>
